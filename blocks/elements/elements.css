@@ -1,7 +1,7 @@
 .elements {
   max-width: 880px;
   margin: 0 auto;
-  margin-bottom: 66px;
+  margin-bottom: 68px;
   margin-top: 0px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -25,5 +25,6 @@
     gap: 20px;
     margin-right: 19px;
     margin-left: 19px;
+    margin-bottom: 48px;
   }
 }

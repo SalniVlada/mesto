@@ -10,83 +10,82 @@
   <header class="header">
     <a href="#" class="header__logo"></a>
   </header>
-
+<main class="content">
   <section class="profile">
     <img src="./sprint-4-images/avatar.jpg" alt="Фотография Жак-Ив Кусто" class="profile__avatar">
     <div class="profile__info">
       <div class="profile__name-panel">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
-        <button type="button" class="profile__button" aria-label="Edit"></button>
+        <button type="button" class="profile__button" aria-label="Редактировать"></button>
       </div>
       <p class="profile__about">Исследователь океана</p>
     </div>
-    <button type="button" class="profile__add-button" aria-label="Add"></button>
+    <button type="button" class="profile__add-button" aria-label="Добавить"></button>
   </section>
 
-  <section>
+  <section class="cards">
     <ul class="elements">
       <li class="element">
         <img src="./sprint-4-images/MontBlanc.jpg" alt="Гора Монблан" class="element__photo">
         <div class="element__group">
           <h3 class="element__title">Монблан</h3>
-          <button type="button" class="element__button" aria-label="Like"></button>
+          <button type="button" class="element__button" aria-label="Нравится"></button>
         </div>
       </li>
       <li class="element">
         <img src="./sprint-4-images/PassoRolle.jpg" alt="Гора Пассо Ролле" class="element__photo">
         <div class="element__group">
           <h3 class="element__title">Пассо Ролле</h3>
-          <button type="button" class="element__button" aria-label="Like"></button>
+          <button type="button" class="element__button" aria-label="Нравится"></button>
         </div>
       </li>
       <li class="element">
         <img src="./sprint-4-images/Sion.jpg" alt="Гора Сьон" class="element__photo">
         <div class="element__group">
           <h3 class="element__title">Сьон</h3>
-          <button type="button" class="element__button" aria-label="Like"></button>
+          <button type="button" class="element__button" aria-label="Нравится"></button>
         </div>
       </li>
       <li class="element">
         <img src="./sprint-4-images/Weisshorn.jpg" alt="Гора Вайссхорн" class="element__photo">
         <div class="element__group">
           <h3 class="element__title">Вайссхорн</h3>
-          <button type="button" class="element__button" aria-label="Like"></button>
+          <button type="button" class="element__button" aria-label="Нравится"></button>
         </div>
       </li>
       <li class="element">
         <img src="./sprint-4-images/Matterhorn.jpg" alt="Гора Маттерхорн" class="element__photo">
         <div class="element__group">
           <h3 class="element__title">Маттерхорн</h3>
-          <button type="button" class="element__button" aria-label="Like"></button>
+          <button type="button" class="element__button" aria-label="Нравится"></button>
         </div>
       </li>
       <li class="element">
         <img src="././sprint-4-images/PalaGroup.jpg" alt="Группа Пала" class="element__photo">
         <div class="element__group">
           <h3 class="element__title">Группа Пала</h3>
-          <button type="button" class="element__button" aria-label="Like"></button>
+          <button type="button" class="element__button" aria-label="Нравится"></button>
         </div>
       </li>
     </ul>
   </section>
+</main>
 
   <footer class="footer">
     <h2 class="footer__caption">&#169; 2022 Mesto Russia</h2>
   </footer>
 
   <div class="popup">
-    <div class="popup__body">
       <div class="popup__container">
-        <div class="popup__close-box"><button class="popup__close"></button></div>
+        <button type="button" class="popup__close"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="form">
-          <input type="text" class="popup__input popup__input_name" placeholder="Имя" required>
-          <input type="text" class="popup__input popup__input_about" placeholder="О себе" required>
+        <form name="myForm" class="form">
+          <input type="text" name="personName" class="popup__input popup__input-name" placeholder="Имя" required>
+          <input type="text" name="personAbout" class="popup__input popup__input-about" placeholder="О себе" required>
           <button type="submit" class="popup__save">Сохранить</button>
         </form>
       </div>
-    </div>
   </div>
-  <script src="./javascript.js"></script>
+  <script src="./skripts/javascript.js"></script>
 </body>
 </html>
