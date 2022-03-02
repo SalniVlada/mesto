@@ -1,14 +1,13 @@
 let popup = document.querySelector(".popup");
 let formElement = document.querySelector(".form");
-let nameInput = document.querySelector(".popup__input-name");
-let aboutInput = document.querySelector(".popup__input-about");
+let nameInput = document.querySelector(".popup__input_add_name");
+let aboutInput = document.querySelector(".popup__input_add_about");
 let editButton = document.querySelector(".profile__button");
 let closeButton = document.querySelector(".popup__close");
-let buttonsLike = document.querySelectorAll(".element__button");
 let newPersonName = document.querySelector(".profile__name");
 let about = document.querySelector(".profile__about");
-let inputName = document.querySelector(".popup__input-name");
-let inputAbout = document.querySelector(".popup__input-about");
+let inputName = document.querySelector(".popup__input_add_name");
+let inputAbout = document.querySelector(".popup__input_add_about");
 
 function showPopup() {
   popup.classList.add("popup_opened");

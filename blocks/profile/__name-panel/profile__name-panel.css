@@ -7,7 +7,7 @@
 
 @media screen and (max-width:660px) {
   .profile__name-panel {
-    margin-bottom: -3px;
+    margin-bottom: 0px;
     justify-content: center;
     width: 282px;
     display: flex;

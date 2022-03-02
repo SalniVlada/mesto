@@ -1,5 +1,5 @@
 .element__button {
-  background: url(../../../../sprint-4-images/Vector-Like.svg) no-repeat;
+  background: url(../../../sprint-4-images/Vector-Like.svg) no-repeat;
   width: 22px;
   height: 19px;
   background-position: center;
@@ -16,5 +16,5 @@
 }
 
 .element__button:active {
-  background: url(../../../../sprint-4-images/Union-active.svg);
+  background: url(../../../sprint-4-images/Union-active.svg);
 }
