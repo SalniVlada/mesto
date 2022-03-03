@@ -11,9 +11,3 @@
   white-space: nowrap;
   overflow: hidden;
 }
-
-@media screen and (max-width:660px) {
-  .element__title {
-    margin-bottom: 31px;
-  }
-}
