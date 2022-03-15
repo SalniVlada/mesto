@@ -1,54 +1,16 @@
-let popupPerson = document.querySelector(".popup__person");
-let formPerson = document.querySelector(".form__person");
-let namePerson = document.querySelector(".popup__input_add_name");
-let aboutPerson = document.querySelector(".popup__input_add_about");
-let editButtonPerson = document.querySelector(".profile__button");
-let closePerson = document.querySelector(".popup__close_person");
-let newPersonName = document.querySelector(".profile__name");
-let about = document.querySelector(".profile__about");
-let inputName = document.querySelector(".popup__input_add_name");
-let inputAbout = document.querySelector(".popup__input_add_about");
+// объявление переменных для редактирования персональных данных
+const popupPerson = document.querySelector(".popup__person");
+const formPerson = document.querySelector(".form__person");
+const namePerson = document.querySelector(".popup__input_add_name"); // rename
+const aboutPerson = document.querySelector(".popup__input_add_about"); // rename
+const editButtonPerson = document.querySelector(".profile__button");
+const closePerson = document.querySelector(".popup__close_person");
+const newPersonName = document.querySelector(".profile__name"); // rename
+const about = document.querySelector(".profile__about"); // rename
+const inputName = document.querySelector(".popup__input_add_name"); // use namePerson
+const inputAbout = document.querySelector(".popup__input_add_about"); // use aboutPerson
 
-function showPopupPerson() {
-  popupPerson.classList.add("popup_opened");
-}
-
-function closePopupPerson() {
-  popupPerson.classList.remove("popup_opened");
-}
-
-function fillPopupPerson() {
-  let nameText = newPersonName.textContent;
-  inputName.setAttribute("value", nameText);
-
-  let aboutText = about.textContent;
-  inputAbout.setAttribute("value", aboutText);
-}
-
-editButtonPerson.addEventListener("click", function() {
-  fillPopupPerson();
-  showPopupPerson();
-});
-
-closePerson.addEventListener("click", closePopupPerson);
-
-function formSubmitHandler (evt) {
-  evt.preventDefault(); 
-
-  let addName = namePerson.value;
-  let addAbout = aboutPerson.value;
-  
-  newPersonName.textContent = addName;
-  about.textContent = addAbout;
-  closePopupPerson();
-}
-
-formPerson.addEventListener('submit', formSubmitHandler);
-
-
-
-
-
+//объявление переменных для добавления, удаления и "лайка" новых карточек
 const elements = [
   {
     name: 'Группа Пала',
@@ -75,22 +37,75 @@ const elements = [
     link: 'https://unsplash.com/photos/S3zopd8_5OY/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8MXx8fGVufDB8fHx8MTY0NzI4NDUyNQ&force=true&w=640'
   }
 ];
-
-const elementsList = document.querySelector(".elements");
+const elementsContainer = document.querySelector(".elements"); // rename elementsContainer
 const elementPhoto = document.querySelector(".element__photo");
+const popupCard = document.querySelector(".popup__card");
+const addCard = document.querySelector(".profile__add-button"); // rename
+const closeCard = document.querySelector(".popup__close_card"); // rename
+const newCard = document.querySelector(".popup__input_card_name"); // rename newCardName
+const newImage = document.querySelector(".popup__input_card_link"); // rename
+const formCard = document.querySelector(".form__card");
+const popupImageLayer = document.querySelector(".popup__image-layer");
+const popupImageTitle = document.querySelector(".popup__image-title");
+const popupImage = document.querySelector(".popup__image");
+const closeImage = document.querySelector(".popup__close_image"); //rename
 
+
+//открытие, закрытие модального окна и редактирование персональных данных
+function showPopupPerson() {
+  popupPerson.classList.add("popup_opened");
+}
+
+function closePopupPerson() {
+  popupPerson.classList.remove("popup_opened");
+}
+
+function fillPopupPerson() {
+  const nameText = newPersonName.textContent;
+  inputName.setAttribute("value", nameText);
+
+  const aboutText = about.textContent;
+  inputAbout.setAttribute("value", aboutText);
+}
+
+editButtonPerson.addEventListener("click", function() {
+  fillPopupPerson();
+  showPopupPerson();
+});
+
+closePerson.addEventListener("click", closePopupPerson);
+
+function formSubmitProfile (evt) { //renmae
+  evt.preventDefault(); 
+
+  const addName = namePerson.value; // rename addedName
+  const addAbout = aboutPerson.value; // rename
+  
+  newPersonName.textContent = addName;
+  about.textContent = addAbout;
+  closePopupPerson();
+}
+
+formPerson.addEventListener('submit', formSubmitProfile);
+
+//создание карточек на странице, появление и закрытие модального окна с добавлением новой карточки, удаление и оценивание карточек
 function addElement (element) {
   const elementTemplate = document.querySelector(".element-template").content.firstElementChild.cloneNode(true);
   const elementTitle = elementTemplate.querySelector(".element__title");
   const elementPhoto = elementTemplate.querySelector(".element__photo");
+  const buttonLike = elementTemplate.querySelector(".element__button");
   elementTitle.textContent = element.name;
   elementPhoto.setAttribute("src", element.link);
 
-  elementsList.prepend(elementTemplate);
+  elementsContainer.prepend(elementTemplate);
 
   elementPhoto.addEventListener("click", function() {
     fillPopupImage(element.name, element.link);
     showPopupImage();
+  });
+
+  buttonLike.addEventListener('click', function () {
+    buttonLike.classList.toggle("element_active");
   });
 
   const deletedElement = elementTemplate.querySelector(".element__delete");
@@ -101,16 +116,6 @@ function addElement (element) {
 }
 
 elements.forEach(addElement);
-
-
-
-
-const popupCard = document.querySelector(".popup__card");
-const addCard = document.querySelector(".profile__add-button");
-const closeCard = document.querySelector(".popup__close_card");
-const newCard = document.querySelector(".popup__input_card_name");
-const newImage = document.querySelector(".popup__input_card_link");
-const formCard = document.querySelector(".form__card");
 
 function showPopupCard() {
   popupCard.classList.add("popup_opened");
@@ -127,11 +132,11 @@ addCard.addEventListener("click", function() {
 
 closeCard.addEventListener("click", closePopupCard);
 
-function formSubmitHandler (evt) {
+function formSubmitNewLocation (evt) { //rename
   evt.preventDefault(); 
 
-  let addTitle = newCard.value;
-  let addImage = newImage.value;
+  let addTitle = newCard.value; // rename
+  let addImage = newImage.value; // rename
   
   const element = {
     name: addTitle,
@@ -141,13 +146,7 @@ function formSubmitHandler (evt) {
   closePopupCard();
 }
 
-formCard.addEventListener('submit', formSubmitHandler);
-
-const popupImageLayer = document.querySelector(".popup__image-layer");
-const popupImageTitle = document.querySelector(".popup__image-title");
-const popupImage = document.querySelector(".popup__image");
-const closeImage = document.querySelector(".popup__close_image");
-
+formCard.addEventListener('submit', formSubmitNewLocation);
 
 function fillPopupImage(nameImage, linkImage) {
   popupImageTitle.textContent = nameImage;
@@ -163,11 +162,3 @@ function closePopupImage() {
 }
 
 closeImage.addEventListener("click", closePopupImage);
-
-const buttonsLike = document.querySelectorAll(".element__button");
-
-buttonsLike.forEach(function(buttonLike) {
-  buttonLike.addEventListener('click', function () {
-    buttonLike.classList.toggle("element_active");
-  })
-});
