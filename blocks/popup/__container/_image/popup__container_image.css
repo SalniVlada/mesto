@@ -1,0 +1,12 @@
+.popup__container_image {
+  background: none;
+  justify-content: flex-start;
+  max-width: 433px;
+}
+
+@media screen and (max-width: 660px) {
+  .popup__container_image {
+    justify-content: center;
+    max-width: 240px;
+  }
+}

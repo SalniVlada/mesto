@@ -1,0 +1,11 @@
+.popup__image-layer {
+  width: 433px;
+  height: 540px;
+}
+
+@media screen and (max-width: 660px) {
+  .popup__image-layer {
+    width: 240px;
+    height: 299px;
+  }
+}

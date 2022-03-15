@@ -15,6 +15,6 @@
   opacity: 0.6;
 }
 
-.element__button:active {
+.element_active {
   background: url(../../../sprint-4-images/Union-active.svg);
 }
