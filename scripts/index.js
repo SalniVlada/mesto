@@ -1,14 +1,12 @@
 // объявление переменных для редактирования персональных данных
-const popupPerson = document.querySelector(".popup__person");
-const formPerson = document.querySelector(".form__person");
-const namePerson = document.querySelector(".popup__input_add_name"); // rename
-const aboutPerson = document.querySelector(".popup__input_add_about"); // rename
-const editButtonPerson = document.querySelector(".profile__button");
-const closePerson = document.querySelector(".popup__close_person");
-const newPersonName = document.querySelector(".profile__name"); // rename
-const about = document.querySelector(".profile__about"); // rename
-const inputName = document.querySelector(".popup__input_add_name"); // use namePerson
-const inputAbout = document.querySelector(".popup__input_add_about"); // use aboutPerson
+const popupPerson = document.querySelector(".popup_person");
+const formPerson = document.querySelector(".form_person");
+const newPersonName = document.querySelector(".popup__input_add_name");
+const newPersonAbout = document.querySelector(".popup__input_add_about");
+const buttonEditPerson = document.querySelector(".profile__button");
+const buttonClosePerson = document.querySelector(".popup__close_person");
+const namePerson = document.querySelector(".profile__name");
+const aboutPerson = document.querySelector(".profile__about");
 
 //объявление переменных для добавления, удаления и "лайка" новых карточек
 const elements = [
@@ -37,18 +35,18 @@ const elements = [
     link: 'https://unsplash.com/photos/S3zopd8_5OY/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8MXx8fGVufDB8fHx8MTY0NzI4NDUyNQ&force=true&w=640'
   }
 ];
-const elementsContainer = document.querySelector(".elements"); // rename elementsContainer
+const elementsContainer = document.querySelector(".elements");
 const elementPhoto = document.querySelector(".element__photo");
-const popupCard = document.querySelector(".popup__card");
-const addCard = document.querySelector(".profile__add-button"); // rename
-const closeCard = document.querySelector(".popup__close_card"); // rename
-const newCard = document.querySelector(".popup__input_card_name"); // rename newCardName
-const newImage = document.querySelector(".popup__input_card_link"); // rename
-const formCard = document.querySelector(".form__card");
+const popupCard = document.querySelector(".popup_card");
+const buttonAddidCard = document.querySelector(".profile__add-button");
+const buttonCloseCard = document.querySelector(".popup__close_card");
+const newCardName = document.querySelector(".popup__input_card_name");
+const newImageLink = document.querySelector(".popup__input_card_link");
+const formCard = document.querySelector(".form_card");
 const popupImageLayer = document.querySelector(".popup__image-layer");
 const popupImageTitle = document.querySelector(".popup__image-title");
-const popupImage = document.querySelector(".popup__image");
-const closeImage = document.querySelector(".popup__close_image"); //rename
+const popupImage = document.querySelector(".popup_image");
+const buttonCloseImage = document.querySelector(".popup__close_image");
 
 
 //открытие, закрытие модального окна и редактирование персональных данных
@@ -61,34 +59,34 @@ function closePopupPerson() {
 }
 
 function fillPopupPerson() {
-  const nameText = newPersonName.textContent;
-  inputName.setAttribute("value", nameText);
+  const nameText = namePerson.textContent;
+  newPersonName.setAttribute("value", nameText);
 
-  const aboutText = about.textContent;
-  inputAbout.setAttribute("value", aboutText);
+  const aboutText = aboutPerson.textContent;
+  newPersonAbout.setAttribute("value", aboutText);
 }
 
-editButtonPerson.addEventListener("click", function() {
+buttonEditPerson.addEventListener("click", function() {
   fillPopupPerson();
   showPopupPerson();
 });
 
-closePerson.addEventListener("click", closePopupPerson);
+buttonClosePerson.addEventListener("click", closePopupPerson);
 
-function formSubmitProfile (evt) { //renmae
+function submitProfile (evt) {
   evt.preventDefault(); 
 
-  const addName = namePerson.value; // rename addedName
-  const addAbout = aboutPerson.value; // rename
+  const addedName = newPersonName.value;
+  const addedAbout = newPersonAbout.value;
   
-  newPersonName.textContent = addName;
-  about.textContent = addAbout;
+  namePerson.textContent = addedName;
+  aboutPerson.textContent = addedAbout;
   closePopupPerson();
 }
 
-formPerson.addEventListener('submit', formSubmitProfile);
+formPerson.addEventListener('submit', submitProfile);
 
-//создание карточек на странице, появление и закрытие модального окна с добавлением новой карточки, удаление и оценивание карточек
+//создание, удаление и "лайк" каточек на странице, появление и закрытие модального окна с добавлением новой карточки
 function addElement (element) {
   const elementTemplate = document.querySelector(".element-template").content.firstElementChild.cloneNode(true);
   const elementTitle = elementTemplate.querySelector(".element__title");
@@ -126,27 +124,27 @@ function closePopupCard() {
   popupCard.classList.remove("popup_opened");
 }
 
-addCard.addEventListener("click", function() {
+buttonAddidCard.addEventListener("click", function() {
   showPopupCard();
 });
 
-closeCard.addEventListener("click", closePopupCard);
+buttonCloseCard.addEventListener("click", closePopupCard);
 
-function formSubmitNewLocation (evt) { //rename
+function submitNewLocation (evt) {
   evt.preventDefault(); 
 
-  let addTitle = newCard.value; // rename
-  let addImage = newImage.value; // rename
+  let addedTitle = newCardName.value;
+  let addedImage = newImageLink.value;
   
   const element = {
-    name: addTitle,
-    link: addImage
+    name: addedTitle,
+    link: addedImage
   }
   addElement(element);
   closePopupCard();
 }
 
-formCard.addEventListener('submit', formSubmitNewLocation);
+formCard.addEventListener('submit', submitNewLocation);
 
 function fillPopupImage(nameImage, linkImage) {
   popupImageTitle.textContent = nameImage;
@@ -161,4 +159,4 @@ function closePopupImage() {
   popupImage.classList.remove("popup_opened");
 }
 
-closeImage.addEventListener("click", closePopupImage);
+buttonCloseImage.addEventListener("click", closePopupImage);
