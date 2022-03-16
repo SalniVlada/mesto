@@ -89,7 +89,7 @@ function submitProfile (evt) {
 formPerson.addEventListener('submit', submitProfile);
 
 //создание, удаление и "лайк" каточек на странице, появление и закрытие модального окна с добавлением новой карточки
-function addElement (element) {
+function renderElement(element) {
   const elementTemplate = document.querySelector(".element-template").content.firstElementChild.cloneNode(true);
   const elementTitle = elementTemplate.querySelector(".element__title");
   const elementPhoto = elementTemplate.querySelector(".element__photo");
@@ -97,8 +97,6 @@ function addElement (element) {
   elementTitle.textContent = element.name;
   elementPhoto.setAttribute("src", element.link);
   elementPhoto.setAttribute("alt", element.name);
-
-  elementsContainer.prepend(elementTemplate);
 
   elementPhoto.addEventListener("click", function() {
     fillPopupImage(element.name, element.link);
@@ -114,10 +112,14 @@ function addElement (element) {
     const element = event.currentTarget.closest(".element");
     element.remove();
   });
+  
+  return elementTemplate;
 }
 
-elements.forEach(addElement);
-
+elements.forEach(function(element) {
+  const elementTemplate = renderElement(element);
+  elementsContainer.prepend(elementTemplate);
+});
 
 buttonAddidCard.addEventListener("click", function() {
   showPopup(popupCard);
@@ -138,7 +140,8 @@ function submitNewLocation (evt) {
     name: addedTitle,
     link: addedImage
   }
-  addElement(element);
+  const elementTemplate = renderElement(element);
+  elementsContainer.prepend(elementTemplate);
   closePopup(popupCard);
 }
 
