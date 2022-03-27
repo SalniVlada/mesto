@@ -38,7 +38,7 @@ const elements = [
 const elementsContainer = document.querySelector(".elements");
 const elementPhoto = document.querySelector(".element__photo");
 const popupCard = document.querySelector(".popup_card");
-const buttonAddidCard = document.querySelector(".profile__add-button");
+const buttonAddedCard = document.querySelector(".profile__add-button");
 const buttonCloseCard = document.querySelector(".popup__close_card");
 const newCardName = document.querySelector(".popup__input_card_name");
 const newImageLink = document.querySelector(".popup__input_card_link");
@@ -69,10 +69,8 @@ function fillPopupPerson() {
 buttonEditPerson.addEventListener("click", function() {
   fillPopupPerson();
   showPopup(popupPerson);
-});
-
-buttonClosePerson.addEventListener("click", function() {
-  closePopup(popupPerson);
+  // вызывать создание слушателя на нажатие вне попапа для закрытия попапа
+  addPopupCloseListener(popupPerson);
 });
 
 function submitProfile (evt) {
@@ -101,6 +99,8 @@ function renderElement(element) {
   elementPhoto.addEventListener("click", function() {
     fillPopupImage(element.name, element.link);
     showPopup(popupImage);
+    // вызывать создание слушателя на нажатие вне попапа для закрытия попапа
+    addPopupCloseListener(popupImage);
   });
 
   buttonLike.addEventListener('click', function () {
@@ -121,13 +121,11 @@ elements.forEach(function(element) {
   elementsContainer.prepend(elementTemplate);
 });
 
-buttonAddidCard.addEventListener("click", function() {
+buttonAddedCard.addEventListener("click", function() {
   showPopup(popupCard);
   formCard.reset();
-});
-
-buttonCloseCard.addEventListener("click", function() {
-  closePopup(popupCard);
+  // вызывать создание слушателя на нажатие вне попапа для закрытия попапа
+  addPopupCloseListener(popupCard);
 });
 
 function submitNewLocation (evt) {
@@ -153,6 +151,24 @@ function fillPopupImage(nameImage, linkImage) {
   popupImageLayer.setAttribute("alt", nameImage);
 }
 
-buttonCloseImage.addEventListener("click", function() {
-  closePopup(popupImage);
-});
+// создание слушателя на нажатие вне попапа для закрытия попапа
+function addPopupCloseListener(popup) {
+  popup.addEventListener('click', closePopupWithListener);
+  document.addEventListener('keydown', closePopupWithKey);
+}
+
+function closePopupWithListener(evt) {
+  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
+    const currentPopup = evt.target.closest('.popup');
+    closePopup(currentPopup);
+    currentPopup.removeEventListener('click', closePopupWithListener);
+  }
+}
+
+function closePopupWithKey(evt) {
+  if (evt.which === 27) {
+    const currentPopup = document.querySelector('.popup.popup_opened');
+    closePopup(currentPopup);
+    document.removeEventListener('keydown', closePopupWithKey);
+  }
+}

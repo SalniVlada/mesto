@@ -6,7 +6,7 @@
   font-size: 14px;
   line-height: 17px;
   padding-bottom: 10px;
-  margin-top: 28px;
+  margin-bottom: 28px;
 }
 
 @media screen and (max-width:660px) {
@@ -16,6 +16,6 @@
   }
 }
 
-.popup__input:last-child {
-  margin-bottom: 47px;
+.popup__input:first-child {
+  margin-top: 28px;
 }
