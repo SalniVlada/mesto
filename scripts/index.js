@@ -109,10 +109,11 @@ function renderElement(element) {
 
   const deletedElement = elementTemplate.querySelector(".element__delete");
   deletedElement.addEventListener("click", function(event) {
-    const element = event.currentTarget.closest(".element");
-    element.remove();
+    showPopup(popupDelete);
+    //const element = event.currentTarget.closest(".element");
+    //element.remove();
   });
-  
+
   return elementTemplate;
 }
 
@@ -156,3 +157,25 @@ function fillPopupImage(nameImage, linkImage) {
 buttonCloseImage.addEventListener("click", function() {
   closePopup(popupImage);
 });
+
+
+
+
+
+const popupDelete = document.querySelector(".popup_delete");
+const buttonCloseDeletePopup = document.querySelector(".popup__close_delete");
+const deletedElement = document.querySelector(".popup__save_delete");
+
+buttonCloseDeletePopup.addEventListener("click", function(){
+  closePopup(popupDelete);
+});
+
+    deletedElement.addEventListener("click", function(event) {
+    const element = event.currentTarget.closest(".element");
+    element.remove();
+    closePopup(popupDelete);
+  });
+
+
+
+ 
