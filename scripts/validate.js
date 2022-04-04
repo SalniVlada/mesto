@@ -25,7 +25,6 @@ function enableValidation ({formSelector, inputSelector, submitButtonSelector, i
   });
 }
 
-
 // Валидация поля ввода.
 function validateInput(input, inputErrorClass, errorClass) {
   const errorPlace = findInputErrorPlace(input); // Элемент с текстом ошибки для этого поля ввода.

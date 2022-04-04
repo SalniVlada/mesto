@@ -48,6 +48,8 @@ const popupImageTitle = document.querySelector(".popup__image-title");
 const popupImage = document.querySelector(".popup_image");
 const buttonCloseImage = document.querySelector(".popup__close_image");
 const buttonEscCode = 27;
+const popupSaveCard = document.querySelector(".popup__save_card");
+const inactiveButtonClass = "popup__save_disabled";
 
 //открытие, закрытие модального окна и редактирование персональных данных
 function showPopup(popup) {
@@ -122,6 +124,8 @@ elements.forEach(function(element) {
 buttonAddedCard.addEventListener("click", function() {
   showPopup(popupCard);
   formCard.reset();
+  popupSaveCard.classList.add(inactiveButtonClass);
+  popupSaveCard.setAttribute('disabled', 'disabled');
 });
 
 function submitNewLocation (evt) {
