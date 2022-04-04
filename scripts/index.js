@@ -47,15 +47,17 @@ const popupImageLayer = document.querySelector(".popup__image-layer");
 const popupImageTitle = document.querySelector(".popup__image-title");
 const popupImage = document.querySelector(".popup_image");
 const buttonCloseImage = document.querySelector(".popup__close_image");
-
+const buttonEscCode = 27;
 
 //открытие, закрытие модального окна и редактирование персональных данных
 function showPopup(popup) {
   popup.classList.add("popup_opened");
+  addPopupCloseListener(popup);
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
+  removePopupCloseListener(popup);
 }
 
 function fillPopupPerson() {
@@ -69,8 +71,6 @@ function fillPopupPerson() {
 buttonEditPerson.addEventListener("click", function() {
   fillPopupPerson();
   showPopup(popupPerson);
-  // вызывать создание слушателя на нажатие вне попапа для закрытия попапа
-  addPopupCloseListener(popupPerson);
 });
 
 function submitProfile (evt) {
@@ -99,8 +99,6 @@ function renderElement(element) {
   elementPhoto.addEventListener("click", function() {
     fillPopupImage(element.name, element.link);
     showPopup(popupImage);
-    // вызывать создание слушателя на нажатие вне попапа для закрытия попапа
-    addPopupCloseListener(popupImage);
   });
 
   buttonLike.addEventListener('click', function () {
@@ -124,8 +122,6 @@ elements.forEach(function(element) {
 buttonAddedCard.addEventListener("click", function() {
   showPopup(popupCard);
   formCard.reset();
-  // вызывать создание слушателя на нажатие вне попапа для закрытия попапа
-  addPopupCloseListener(popupCard);
 });
 
 function submitNewLocation (evt) {
@@ -157,18 +153,24 @@ function addPopupCloseListener(popup) {
   document.addEventListener('keydown', closePopupWithKey);
 }
 
-function closePopupWithListener(evt) {
-  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
-    const currentPopup = evt.target.closest('.popup');
-    closePopup(currentPopup);
-    currentPopup.removeEventListener('click', closePopupWithListener);
-  }
+// удаление слушателя на нажатие вне попапа для закрытия попапа
+function removePopupCloseListener(popup) {
+  popup.removeEventListener('click', closePopupWithListener);
+  document.removeEventListener('keydown', closePopupWithKey);
 }
 
+function closePopupWithListener(evt) {
+  let currentPopup = evt.target;
+  if (evt.target.classList.contains('popup__close')) {
+    currentPopup = evt.target.closest('.popup');
+  }
+  closePopup(currentPopup);
+}
+
+
 function closePopupWithKey(evt) {
-  if (evt.which === 27) {
+  if (evt.which === buttonEscCode) {
     const currentPopup = document.querySelector('.popup.popup_opened');
     closePopup(currentPopup);
-    document.removeEventListener('keydown', closePopupWithKey);
   }
 }
