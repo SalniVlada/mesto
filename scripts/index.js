@@ -1,3 +1,5 @@
+import { Card } from './Card.js';
+
 // объявление переменных для редактирования персональных данных
 const popupPerson = document.querySelector(".popup_person");
 const formPerson = document.querySelector(".form_person");
@@ -43,9 +45,6 @@ const buttonCloseCard = document.querySelector(".popup__close_card");
 const newCardName = document.querySelector(".popup__input_card_name");
 const newImageLink = document.querySelector(".popup__input_card_link");
 const formCard = document.querySelector(".form_card");
-const popupImageLayer = document.querySelector(".popup__image-layer");
-const popupImageTitle = document.querySelector(".popup__image-title");
-const popupImage = document.querySelector(".popup_image");
 const buttonCloseImage = document.querySelector(".popup__close_image");
 const buttonEscCode = 27;
 const popupSaveCard = document.querySelector(".popup__save_card");
@@ -56,6 +55,8 @@ function showPopup(popup) {
   popup.classList.add("popup_opened");
   addPopupCloseListener(popup);
 }
+
+export {showPopup};
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
@@ -88,36 +89,9 @@ function submitProfile (evt) {
 
 formPerson.addEventListener('submit', submitProfile);
 
-//создание, удаление и "лайк" каточек на странице, появление и закрытие модального окна с добавлением новой карточки
-function renderElement(element) {
-  const elementTemplate = document.querySelector(".element-template").content.firstElementChild.cloneNode(true);
-  const elementTitle = elementTemplate.querySelector(".element__title");
-  const elementPhoto = elementTemplate.querySelector(".element__photo");
-  const buttonLike = elementTemplate.querySelector(".element__button");
-  elementTitle.textContent = element.name;
-  elementPhoto.setAttribute("src", element.link);
-  elementPhoto.setAttribute("alt", element.name);
-
-  elementPhoto.addEventListener("click", function() {
-    fillPopupImage(element.name, element.link);
-    showPopup(popupImage);
-  });
-
-  buttonLike.addEventListener('click', function () {
-    buttonLike.classList.toggle("element_active");
-  });
-
-  const deletedElement = elementTemplate.querySelector(".element__delete");
-  deletedElement.addEventListener("click", function(event) {
-    const element = event.currentTarget.closest(".element");
-    element.remove();
-  });
-  
-  return elementTemplate;
-}
-
 elements.forEach(function(element) {
-  const elementTemplate = renderElement(element);
+  const card = new Card(element.name, element.link, ".element-template");
+  const elementTemplate = card.renderElement();
   elementsContainer.prepend(elementTemplate);
 });
 
@@ -138,18 +112,13 @@ function submitNewLocation (evt) {
     name: addedTitle,
     link: addedImage
   }
-  const elementTemplate = renderElement(element);
+  const card = new Card(element.name, element.link, ".element-template");
+  const elementTemplate = card.renderElement();
   elementsContainer.prepend(elementTemplate);
   closePopup(popupCard);
 }
 
 formCard.addEventListener('submit', submitNewLocation);
-
-function fillPopupImage(nameImage, linkImage) {
-  popupImageTitle.textContent = nameImage;
-  popupImageLayer.setAttribute("src", linkImage);
-  popupImageLayer.setAttribute("alt", nameImage);
-}
 
 // создание слушателя на нажатие вне попапа для закрытия попапа
 function addPopupCloseListener(popup) {
@@ -170,7 +139,6 @@ function closePopupWithListener(evt) {
   }
   closePopup(currentPopup);
 }
-
 
 function closePopupWithKey(evt) {
   if (evt.which === buttonEscCode) {
