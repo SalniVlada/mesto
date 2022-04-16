@@ -1,4 +1,5 @@
 import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
 
 // объявление переменных для редактирования персональных данных
 const popupPerson = document.querySelector(".popup_person");
@@ -6,7 +7,6 @@ const formPerson = document.querySelector(".form_person");
 const newPersonName = document.querySelector(".popup__input_add_name");
 const newPersonAbout = document.querySelector(".popup__input_add_about");
 const buttonEditPerson = document.querySelector(".profile__button");
-const buttonClosePerson = document.querySelector(".popup__close_person");
 const namePerson = document.querySelector(".profile__name");
 const aboutPerson = document.querySelector(".profile__about");
 
@@ -38,14 +38,11 @@ const elements = [
   }
 ];
 const elementsContainer = document.querySelector(".elements");
-const elementPhoto = document.querySelector(".element__photo");
 const popupCard = document.querySelector(".popup_card");
 const buttonAddedCard = document.querySelector(".profile__add-button");
-const buttonCloseCard = document.querySelector(".popup__close_card");
 const newCardName = document.querySelector(".popup__input_card_name");
 const newImageLink = document.querySelector(".popup__input_card_link");
 const formCard = document.querySelector(".form_card");
-const buttonCloseImage = document.querySelector(".popup__close_image");
 const buttonEscCode = 27;
 const popupSaveCard = document.querySelector(".popup__save_card");
 const inactiveButtonClass = "popup__save_disabled";
@@ -146,3 +143,20 @@ function closePopupWithKey(evt) {
     closePopup(currentPopup);
   }
 }
+
+const selectorsForValidation = {
+  formSelector: '.form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save',
+  inactiveButtonClass: 'popup__save_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
+
+const formPersonValidator = new FormValidator(selectorsForValidation, formPerson);
+
+formPersonValidator.enableValidation();
+
+const formCardValidator = new FormValidator(selectorsForValidation, formCard);
+
+formCardValidator.enableValidation();
