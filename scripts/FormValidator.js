@@ -6,26 +6,27 @@ export class FormValidator {
     this.inactiveButtonClass = inactiveButtonClass;
     this.inputErrorClass = inputErrorClass;
     this.errorClass = errorClass;
-    this.form = form;
+    this._form = form;
   }
 
   // Функция устанавливает правила валидации и показывает сообщения об ошибках.
   enableValidation() {
     // Выбор всех полей ввода на форме.
-    const inputs = Array.from(this.form.querySelectorAll(this.inputSelector));
-    inputs.forEach(input => {
+    this._inputs = Array.from(this._form.querySelectorAll(this.inputSelector));
+    this._button = this._form.querySelector(this.submitButtonSelector);
+    this._inputs.forEach(input => {
       // При изменении поля вызываются функции валидации.
-      this._setListenerOnInput(input, inputs);
+      this._setListenerOnInput(input);
     });
   }
 
-  _setListenerOnInput(input, inputs) {
-    input.addEventListener('input', () => this._validateElements(input, inputs));
+  _setListenerOnInput(input) {
+    input.addEventListener('input', () => this._validateElements(input));
   }
 
-  _validateElements(input, inputs) {
+  _validateElements(input) {
     this._validateInput(input);
-    this._validateForm(inputs);
+    this.validateForm();
   };
 
   // Валидация поля ввода.
@@ -64,19 +65,18 @@ export class FormValidator {
   }
 
   //Валидация поля формы
-  _validateForm(inputs) {
-    const button = this.form.querySelector(this.submitButtonSelector);
-    if (this._isInputsValid(inputs)) {
-      button.classList.remove(this.inactiveButtonClass);
-      button.removeAttribute('disabled');
+  validateForm() {
+    if (this._isInputsValid()) {
+      this._button.classList.remove(this.inactiveButtonClass);
+      this._button.removeAttribute('disabled');
     } else {
-      button.classList.add(this.inactiveButtonClass);
-      button.setAttribute('disabled', 'disabled');
+      this._button.classList.add(this.inactiveButtonClass);
+      this._button.setAttribute('disabled', 'disabled');
     }
   }
 
   // показать, есть ли хотя бы одно невалидное поле в форме
-  _isInputsValid(inputs) {
-    return inputs.every(this._isInputValid);
+  _isInputsValid() {
+    return this._inputs.every(this._isInputValid);
   }
 }

@@ -11,3 +11,9 @@
   margin-top: 5px;
   margin-bottom: 11px;
 }
+
+@media screen and (max-width:660px) {
+  .popup__error_visible {
+    max-width: 242px;
+  }
+}
