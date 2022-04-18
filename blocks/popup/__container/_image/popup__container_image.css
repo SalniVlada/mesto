@@ -1,7 +1,8 @@
 .popup__container_image {
   background: none;
-  justify-content: flex-start;
-  max-width: 433px;
+  max-width: 75vw;
+  position: relative;
+  flex-direction: column;
 }
 
 @media screen and (max-width: 660px) {
