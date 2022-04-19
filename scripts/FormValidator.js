@@ -1,19 +1,19 @@
 export class FormValidator {
   constructor({formSelector, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass}, form) {
-    this.formSelector = formSelector;
-    this.inputSelector = inputSelector;
-    this.submitButtonSelector = submitButtonSelector;
-    this.inactiveButtonClass = inactiveButtonClass;
-    this.inputErrorClass = inputErrorClass;
-    this.errorClass = errorClass;
+    this._formSelector = formSelector;
+    this._inputSelector = inputSelector;
+    this._submitButtonSelector = submitButtonSelector;
+    this._inactiveButtonClass = inactiveButtonClass;
+    this._inputErrorClass = inputErrorClass;
+    this._errorClass = errorClass;
     this._form = form;
   }
 
   // Функция устанавливает правила валидации и показывает сообщения об ошибках.
   enableValidation() {
     // Выбор всех полей ввода на форме.
-    this._inputs = Array.from(this._form.querySelectorAll(this.inputSelector));
-    this._button = this._form.querySelector(this.submitButtonSelector);
+    this._inputs = Array.from(this._form.querySelectorAll(this._inputSelector));
+    this._button = this._form.querySelector(this._submitButtonSelector);
     this._inputs.forEach(input => {
       // При изменении поля вызываются функции валидации.
       this._setListenerOnInput(input);
@@ -52,25 +52,25 @@ export class FormValidator {
 
   // скрыть ошибку под полем
   _hideInputError(input, errorPlace) {
-    input.classList.remove(this.inputErrorClass);
+    input.classList.remove(this._inputErrorClass);
     errorPlace.textContent = '';
-    errorPlace.classList.remove(this.errorClass);
+    errorPlace.classList.remove(this._errorClass);
   }
 
   // показать ошибку под полем
   _showInputError(input, errorPlace) {
-    input.classList.add(this.inputErrorClass);
+    input.classList.add(this._inputErrorClass);
     errorPlace.textContent = input.validationMessage;
-    errorPlace.classList.add(this.errorClass);
+    errorPlace.classList.add(this._errorClass);
   }
 
   //Валидация поля формы
   validateForm() {
     if (this._isInputsValid()) {
-      this._button.classList.remove(this.inactiveButtonClass);
+      this._button.classList.remove(this._inactiveButtonClass);
       this._button.removeAttribute('disabled');
     } else {
-      this._button.classList.add(this.inactiveButtonClass);
+      this._button.classList.add(this._inactiveButtonClass);
       this._button.setAttribute('disabled', 'disabled');
     }
   }

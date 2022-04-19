@@ -113,8 +113,8 @@ formCardValidator.enableValidation();
 
 buttonAddedCard.addEventListener("click", function() {
   formCard.reset();
-  showPopup(popupCard);
   formCardValidator.validateForm();
+  showPopup(popupCard);
 });
 
 function submitNewLocation (evt) {
@@ -147,12 +147,11 @@ function removePopupCloseListener(popup) {
 }
 
 function closePopupWithListener(evt) {
-  let currentPopup = evt.target;
   //Если было нажатие на крестик, то currentPopup переопределяется на открытый попап
-  if (evt.target.classList.contains('popup__close')) {
-    currentPopup = evt.target.closest('.popup');
+  if (evt.target.classList.contains('popup__close') || evt.target.classList.contains('popup')) {
+    const currentPopup = evt.target.closest('.popup');
+    closePopup(currentPopup);
   }
-  closePopup(currentPopup);
 }
 
 function closePopupWithKey(evt) {
