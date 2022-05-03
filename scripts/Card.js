@@ -1,13 +1,12 @@
-import {showPopup} from './index.js';
-
 export class Card {
-  constructor(name, link, selectorTemplate) {
+  constructor(name, link, selectorTemplate, handleCardClick) {
     this.selectorTemplate = selectorTemplate;
     this.name = name;
     this.link = link;
-    this.popupImageTitle = document.querySelector(".popup__image-title");
-    this.popupImageLayer = document.querySelector(".popup__image-layer");
+    /*this.popupImageTitle = document.querySelector(".popup__image-title");
+    this.popupImageLayer = document.querySelector(".popup__image-layer");*/
     this.popupImage = document.querySelector(".popup_image");
+    this._handleCardClick = handleCardClick;
   }
 
   renderElement() {
@@ -30,19 +29,14 @@ export class Card {
   }
 
   _setListenerOnClickPhoto(elementPhoto) {
-    elementPhoto.addEventListener("click", this._showPhoto.bind(this));
+    elementPhoto.addEventListener("click", this._handleCardClick);
   }
 
-  _showPhoto() {
-    this._fillPopupImage(this.name, this.link);
-    showPopup(this.popupImage);
-  }
-
-  _fillPopupImage(nameImage, linkImage) {
+  /*_fillPopupImage(nameImage, linkImage) {
     this.popupImageTitle.textContent = nameImage;
     this.popupImageLayer.setAttribute("src", linkImage);
     this.popupImageLayer.setAttribute("alt", nameImage);
-  }
+  }*/
 
   _setListenerOnClickButtonLike(buttonLike) {
     buttonLike.addEventListener('click', () => this._likePhoto(buttonLike));
