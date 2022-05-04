@@ -3,8 +3,6 @@ export class Card {
     this.selectorTemplate = selectorTemplate;
     this.name = name;
     this.link = link;
-    /*this.popupImageTitle = document.querySelector(".popup__image-title");
-    this.popupImageLayer = document.querySelector(".popup__image-layer");*/
     this.popupImage = document.querySelector(".popup_image");
     this._handleCardClick = handleCardClick;
   }
@@ -19,24 +17,18 @@ export class Card {
     elementPhoto.setAttribute("alt", this.name);
 
     this._setListenerOnClickPhoto(elementPhoto);
-  
+
     this._setListenerOnClickButtonLike(buttonLike);
-  
+
     const deletedElement = elementTemplate.querySelector(".element__delete");
     this._setListenerOnClickDeletePhoto(deletedElement);
-    
+
     return elementTemplate;
   }
 
   _setListenerOnClickPhoto(elementPhoto) {
     elementPhoto.addEventListener("click", this._handleCardClick);
   }
-
-  /*_fillPopupImage(nameImage, linkImage) {
-    this.popupImageTitle.textContent = nameImage;
-    this.popupImageLayer.setAttribute("src", linkImage);
-    this.popupImageLayer.setAttribute("alt", nameImage);
-  }*/
 
   _setListenerOnClickButtonLike(buttonLike) {
     buttonLike.addEventListener('click', () => this._likePhoto(buttonLike));

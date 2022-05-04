@@ -1,15 +1,14 @@
-import '../pages/index.css';
+import './index.css';
 
-import { Card } from '../scripts/Card.js';
-import { FormValidator } from '../scripts/FormValidator.js';
-import { UserInfo } from '../scripts/UserInfo.js';
-import { PopupWithForm } from '../scripts/PopupWithForm.js';
-import { PopupWithImage } from '../scripts/PopupWithImage.js';
-import { Section } from '../scripts/Section.js';
+import { Card } from '../components/Card.js';
+import { FormValidator } from '../components/FormValidator.js';
+import { UserInfo } from '../components/UserInfo.js';
+import { PopupWithForm } from '../components/PopupWithForm.js';
+import { PopupWithImage } from '../components/PopupWithImage.js';
+import { Section } from '../components/Section.js';
 
 // объявление DOM-элементов
 const buttonEditPerson = document.querySelector(".profile__button");
-const elementsContainer = document.querySelector(".elements");
 const buttonAddCard = document.querySelector(".profile__add-button");
 
 // объявление данных
@@ -56,10 +55,10 @@ const userInfo = new UserInfo({
   userAboutSelector: ".profile__about"
 });
 
-function submitProfile (inputValues) {
+function submitProfile(inputValues) {
   const name = inputValues.find((input) => { return input.getAttribute("name") === "personName"; }).value;
   const about = inputValues.find((input) => { return input.getAttribute("name") === "personAbout"; }).value;
-  userInfo.setUserInfo({newElementName: name, newElementAbout: about});
+  userInfo.setUserInfo({ newElementName: name, newElementAbout: about });
 }
 
 const popupEditUserInfo = new PopupWithForm(".popup_person", submitProfile);
@@ -67,16 +66,16 @@ const popupEditUserInfo = new PopupWithForm(".popup_person", submitProfile);
 const formPersonValidator = new FormValidator(selectorsForValidation, popupEditUserInfo.form);
 formPersonValidator.enableValidation();
 
-buttonEditPerson.addEventListener("click", function() {
+buttonEditPerson.addEventListener("click", function () {
   const nameAbout = userInfo.getUserInfo();
-  popupEditUserInfo.setInputValues([{name: "personName", value: nameAbout.name}, {name: "personAbout", value: nameAbout.about}]);
+  popupEditUserInfo.setInputValues([{ name: "personName", value: nameAbout.name }, { name: "personAbout", value: nameAbout.about }]);
   formPersonValidator.validateForm();
   popupEditUserInfo.open();
 });
 
 
 // блок работы с карточками
-function createCard({name, link}) {
+function createCard({ name, link }) {
   function handleCardClick() {
     const popupWithImage = new PopupWithImage(".popup_image", name, link);
     popupWithImage.open();
@@ -85,13 +84,13 @@ function createCard({name, link}) {
   return card.renderElement();
 }
 
-const section = new Section({items: elements, renderer: createCard}, ".elements");
+const section = new Section({ items: elements, renderer: createCard }, ".elements");
 section.renderAll().forEach((item) => { section.addItem(item); });
 
-function submitNewLocation (inputValues) {
+function submitNewLocation(inputValues) {
   const name = inputValues.find((input) => { return input.getAttribute("name") === "cardName"; }).value;
   const link = inputValues.find((input) => { return input.getAttribute("name") === "cardLink"; }).value;
-  const card = createCard({name: name, link: link});
+  const card = createCard({ name: name, link: link });
   section.addItem(card);
 }
 
@@ -100,7 +99,7 @@ const popupAddCard = new PopupWithForm(".popup_card", submitNewLocation);
 const formCardValidator = new FormValidator(selectorsForValidation, popupAddCard.form);
 formCardValidator.enableValidation();
 
-buttonAddCard.addEventListener("click", function() {
+buttonAddCard.addEventListener("click", function () {
   formCardValidator.validateForm();
   popupAddCard.open();
 });
