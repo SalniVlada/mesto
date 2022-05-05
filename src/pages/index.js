@@ -7,47 +7,12 @@ import { PopupWithForm } from '../components/PopupWithForm.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { Section } from '../components/Section.js';
 
-// объявление DOM-элементов
-const buttonEditPerson = document.querySelector(".profile__button");
-const buttonAddCard = document.querySelector(".profile__add-button");
+import { buttonEditPerson } from '../utils/constants.js';
+import { buttonAddCard } from '../utils/constants.js';
 
-// объявление данных
-const elements = [
-  {
-    name: 'Группа Пала',
-    link: 'https://unsplash.com/photos/9TaYFMMapbA/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8MXx8fGVufDB8fHx8MTY0NzI4NTQzNw&force=true&w=640'
-  },
-  {
-    name: 'Маттерхорн',
-    link: 'https://unsplash.com/photos/S3zopd8_5OY/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8MXx8fGVufDB8fHx8MTY0NzI4NDUyNQ&force=true&w=640'
-  },
-  {
-    name: 'Вайссхорн',
-    link: 'https://unsplash.com/photos/uqm2GgJANDM/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8MXx8fGVufDB8fHx8MTY0NzI4NTMwOA&force=true&w=640'
-  },
-  {
-    name: 'Сьон',
-    link: 'https://unsplash.com/photos/Nr_LsDsyJG4/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8MXx8fGVufDB8fHx8MTY0NzI4NTI2Mw&force=true&w=640'
-  },
-  {
-    name: 'Пассо Ролле',
-    link: 'https://unsplash.com/photos/3i5PHVp1Fkw/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8MXx8fGVufDB8fHx8MTY0NzI4NTE5Mg&force=true&w=640'
-  },
-  {
-    name: 'Монблан',
-    link: 'https://unsplash.com/photos/S3zopd8_5OY/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8MXx8fGVufDB8fHx8MTY0NzI4NDUyNQ&force=true&w=640'
-  }
-];
+import { elements } from '../utils/elements.js';
 
-const selectorsForValidation = {
-  formSelector: '.form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save',
-  inactiveButtonClass: 'popup__save_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-};
-
+import { selectorsForValidation } from '../utils/selectorsForValidation.js';
 
 // блок работы с информацией о себе
 const userInfo = new UserInfo({
