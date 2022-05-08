@@ -5,7 +5,7 @@ export class Section {
   constructor({items, renderer}, parentSelector) {
     this._items = items;
     this._renderer = renderer;
-    this._parentSelector = parentSelector;
+    this._container = document.querySelector(parentSelector);
   }
 
   renderAll() {
@@ -15,7 +15,6 @@ export class Section {
   }
 
   addItem(item) {
-    const container = document.querySelector(this._parentSelector);
-    container.prepend(item);
+    this._container.prepend(item);
   }
 }

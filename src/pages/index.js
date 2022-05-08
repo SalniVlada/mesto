@@ -21,12 +21,13 @@ const userInfo = new UserInfo({
 });
 
 function submitProfile(inputValues) {
-  const name = inputValues.find((input) => { return input.getAttribute("name") === "personName"; }).value;
-  const about = inputValues.find((input) => { return input.getAttribute("name") === "personAbout"; }).value;
+  const name = inputValues.find((input) => { return input.name === "personName"; }).value;
+  const about = inputValues.find((input) => { return input.name === "personAbout"; }).value;
   userInfo.setUserInfo({ newElementName: name, newElementAbout: about });
 }
 
 const popupEditUserInfo = new PopupWithForm(".popup_person", submitProfile);
+popupEditUserInfo.setEventListeners();
 
 const formPersonValidator = new FormValidator(selectorsForValidation, popupEditUserInfo.form);
 formPersonValidator.enableValidation();
@@ -34,37 +35,39 @@ formPersonValidator.enableValidation();
 buttonEditPerson.addEventListener("click", function () {
   const nameAbout = userInfo.getUserInfo();
   popupEditUserInfo.setInputValues([{ name: "personName", value: nameAbout.name }, { name: "personAbout", value: nameAbout.about }]);
-  formPersonValidator.validateForm();
+  formPersonValidator.toggleButtonState();
   popupEditUserInfo.open();
 });
 
-
 // блок работы с карточками
+const popupWithImage = new PopupWithImage(".popup_image");
+popupWithImage.setEventListeners();
+
 function createCard({ name, link }) {
   function handleCardClick() {
-    const popupWithImage = new PopupWithImage(".popup_image", name, link);
-    popupWithImage.open();
+    popupWithImage.open(name, link);
   }
   const card = new Card(name, link, ".element-template", handleCardClick);
   return card.renderElement();
 }
 
-const section = new Section({ items: elements, renderer: createCard }, ".elements");
-section.renderAll().forEach((item) => { section.addItem(item); });
+const section = new Section({ items: elements, renderer: (item) => section.addItem(createCard(item)) }, ".elements");
+section.renderAll();
 
 function submitNewLocation(inputValues) {
-  const name = inputValues.find((input) => { return input.getAttribute("name") === "cardName"; }).value;
-  const link = inputValues.find((input) => { return input.getAttribute("name") === "cardLink"; }).value;
+  const name = inputValues.find((input) => { return input.name === "cardName"; }).value;
+  const link = inputValues.find((input) => { return input.name === "cardLink"; }).value;
   const card = createCard({ name: name, link: link });
   section.addItem(card);
 }
 
 const popupAddCard = new PopupWithForm(".popup_card", submitNewLocation);
+popupAddCard.setEventListeners();
 
 const formCardValidator = new FormValidator(selectorsForValidation, popupAddCard.form);
 formCardValidator.enableValidation();
 
 buttonAddCard.addEventListener("click", function () {
-  formCardValidator.validateForm();
+  formCardValidator.toggleButtonState();
   popupAddCard.open();
 });

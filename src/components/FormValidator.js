@@ -26,7 +26,7 @@ export class FormValidator {
 
   _validateElements(input) {
     this._validateInput(input);
-    this.validateForm();
+    this.toggleButtonState();
   };
 
   // Валидация поля ввода.
@@ -65,7 +65,7 @@ export class FormValidator {
   }
 
   //Валидация поля формы
-  validateForm() {
+  toggleButtonState() {
     if (this._isInputsValid()) {
       this._button.classList.remove(this._inactiveButtonClass);
       this._button.removeAttribute('disabled');
