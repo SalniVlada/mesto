@@ -2,6 +2,7 @@ export class Popup {
   constructor(popupSelector) {
     this._popupSelector = popupSelector;
     this._popup = document.querySelector(this._popupSelector);
+    this._currentClosePopupWithListener = this._closePopupWithListener.bind(this);
   }
 
   open() {
@@ -12,7 +13,6 @@ export class Popup {
 
   // создание слушателя на нажатие вне попапа для закрытия попапа
   setEventListeners() {
-    this._currentClosePopupWithListener = this._closePopupWithListener.bind(this);
     this._popup.addEventListener('click', this._currentClosePopupWithListener);
   }
 

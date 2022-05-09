@@ -21,8 +21,8 @@ const userInfo = new UserInfo({
 });
 
 function submitProfile(inputValues) {
-  const name = inputValues.find((input) => { return input.name === "personName"; }).value;
-  const about = inputValues.find((input) => { return input.name === "personAbout"; }).value;
+  const name = inputValues["personName"];
+  const about = inputValues["personAbout"];
   userInfo.setUserInfo({ newElementName: name, newElementAbout: about });
 }
 
@@ -55,8 +55,8 @@ const section = new Section({ items: elements, renderer: (item) => section.addIt
 section.renderAll();
 
 function submitNewLocation(inputValues) {
-  const name = inputValues.find((input) => { return input.name === "cardName"; }).value;
-  const link = inputValues.find((input) => { return input.name === "cardLink"; }).value;
+  const name = inputValues["cardName"];
+  const link = inputValues["cardLink"];
   const card = createCard({ name: name, link: link });
   section.addItem(card);
 }

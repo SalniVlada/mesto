@@ -5,14 +5,16 @@ export class PopupWithForm extends Popup {
     super(popupSelector);
     this._callbackSubmitForm = callbackSubmitForm;
     this.form = this._popup.querySelector('form');
+    this._allInputs = Array.from(this._popup.querySelectorAll('.popup__input'));
   }
 
   _getInputValues() {
     // В форме найти все input по селектору их класса, превратить в массив DOM-элементов, вернуть
-    const allInputs = Array.from(this._popup.querySelectorAll('.popup__input'));
-    return allInputs.map(function(input) {
-      return {name: input.getAttribute("name"), value: input.value}
-    });
+    this._formValues = {}; 
+    this._allInputs.forEach(input => { 
+      this._formValues[input.name] = input.value; 
+    }); 
+    return this._formValues;
   }
 
   setInputValues(inputValues) {
@@ -38,6 +40,5 @@ export class PopupWithForm extends Popup {
     super.close();
 
     this.form.reset();
-    this.form.removeEventListener('submit', this._currentCallbackSubmitListener);
   }
 }
