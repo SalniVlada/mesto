@@ -4,6 +4,7 @@ class Api {
     this.headers = options.headers; 
   }
 
+  // единый блок GET
   _executeGetRequest(path) {
     return fetch(this.baseUrl + path, {
       headers: this.headers
@@ -16,14 +17,17 @@ class Api {
     });
   }
 
+ //загрузка информации о пользователи
   getUserInfo() {
     return this._executeGetRequest('/users/me');
   }
 
+  // загрузка карточек
   getInitialCards() {
     return this._executeGetRequest('/cards');
   }
 
+  // единый блок PATCH
   _executePatchRequest(path, data) {
     return fetch(this.baseUrl + path, {
       method: 'PATCH',
@@ -38,14 +42,17 @@ class Api {
     });
   }
 
+  // редактирование профиля
   patchUserInfo(data) {
     return this._executePatchRequest('/users/me', data);
   }
 
+  // редактирование аватара
   patchUserAvatar(data) {
     return this._executePatchRequest('/users/me/avatar', data);
   }
 
+  // добавление новой каточки
   postCard({name, link}) {
     return fetch(this.baseUrl + '/cards', {
       method: 'POST',
@@ -63,6 +70,7 @@ class Api {
     });
   }
 
+  // удиный блок DELETE
   _executeDeleteRequest(path) {
     return fetch(this.baseUrl + path, {
       method: 'DELETE',
@@ -76,14 +84,17 @@ class Api {
     });
   }
 
+  // удаление карточки
   deleteCard(cardId) {
     return this._executeDeleteRequest('/cards/' + cardId);
   }
 
+  //"удаление" лайка
   deleteLikes(cardId) {
     return this._executeDeleteRequest('/cards/' + cardId + '/likes');
   }
 
+  // лайк карточки
   putLikes(cardId) {
     return fetch(this.baseUrl + '/cards/' + cardId + '/likes', {
       method: 'PUT',
