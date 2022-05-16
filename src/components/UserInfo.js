@@ -16,8 +16,9 @@ export class UserInfo {
     return objectUserInfo;
   }
 
-  setUserInfo({newElementName, newElementAbout}) {
+  setUserInfo({newElementName, newElementAbout, userId}) {
     this._elementName.textContent = newElementName;
     this._elementAbout.textContent = newElementAbout;
+    this.userId = userId;
   }
 }

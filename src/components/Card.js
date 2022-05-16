@@ -1,27 +1,42 @@
 export class Card {
-  constructor(name, link, selectorTemplate, handleCardClick) {
+  constructor({data, handleCardClick, handleLikeClick, handleDeleteIconClick}, selectorTemplate, userId) {
     this.selectorTemplate = selectorTemplate;
-    this.name = name;
-    this.link = link;
+    this.name = data.name;
+    this.link = data.link;
+    this.likes = data.likes;
+    this.id = data._id;
+    this.ownerId = data.owner._id;
+    this.userId = userId;
     this.popupImage = document.querySelector(".popup_image");
     this._handleCardClick = handleCardClick;
+    this._handleLikeClick = handleLikeClick;
+    this._handleDeleteIconClick = handleDeleteIconClick;
+    this._liked = this.likes.map((elem) => { return elem._id }).includes(this.userId);
   }
 
   renderElement() {
     const elementTemplate = document.querySelector(this.selectorTemplate).content.firstElementChild.cloneNode(true);
+    elementTemplate.id = this.id;
     const elementTitle = elementTemplate.querySelector(".element__title");
     const elementPhoto = elementTemplate.querySelector(".element__photo");
-    const buttonLike = elementTemplate.querySelector(".element__button");
+    this._buttonLike = elementTemplate.querySelector(".element__button");
+    this._elementCounter = elementTemplate.querySelector(".element__counter");
     elementTitle.textContent = this.name;
     elementPhoto.setAttribute("src", this.link);
     elementPhoto.setAttribute("alt", this.name);
+    this.setLikesCount(this.likes.length);
+    this.setLiked(this.getLiked());
 
     this._setListenerOnClickPhoto(elementPhoto);
 
-    this._setListenerOnClickButtonLike(buttonLike);
+    this._setListenerOnClickButtonLike();
 
     const deletedElement = elementTemplate.querySelector(".element__delete");
-    this._setListenerOnClickDeletePhoto(deletedElement);
+    if (this.userId == this.ownerId) {
+      this._setListenerOnClickDeletePhoto(deletedElement);
+    } else {
+      deletedElement.remove();
+    }
 
     return elementTemplate;
   }
@@ -30,20 +45,28 @@ export class Card {
     elementPhoto.addEventListener("click", this._handleCardClick);
   }
 
-  _setListenerOnClickButtonLike(buttonLike) {
-    buttonLike.addEventListener('click', () => this._likePhoto(buttonLike));
-  }
-
-  _likePhoto(buttonLike) {
-    buttonLike.classList.toggle("element_active");
+  _setListenerOnClickButtonLike() {
+    this._buttonLike.addEventListener('click', () => this._handleLikeClick(this));
   }
 
   _setListenerOnClickDeletePhoto(deletedElement) {
-    deletedElement.addEventListener("click", this._deletePhoto);
+    deletedElement.addEventListener("click", () => { this._handleDeleteIconClick(this) });
   }
 
-  _deletePhoto(event) {
-    const element = event.currentTarget.closest(".element");
-    element.remove();
+  getLiked() {
+    return this._liked;
+  }
+
+  setLiked(condition) {
+    this._liked = condition;
+    if (condition) {
+      this._buttonLike.classList.add("element_active");
+    } else {
+      this._buttonLike.classList.remove("element_active");
+    }
+  }
+
+  setLikesCount(n) {
+    this._elementCounter.textContent = n;
   }
 }

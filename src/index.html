@@ -15,13 +15,16 @@
 
   <main class="content">
     <section class="profile">
-      <img src="<%=require('./sprint-4-images/avatar.jpg')%>" alt="Фотография Жак-Ив Кусто" class="profile__avatar">
+      <img src="" alt="Фотография Жак-Ив Кусто" class="profile__avatar">
+      <div class="profile__edit-avatar">
+        
+      </div>
       <div class="profile__info">
         <div class="profile__name-panel">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <h1 class="profile__name"></h1>
           <button type="button" class="profile__button" aria-label="Редактировать"></button>
         </div>
-        <p class="profile__about">Исследователь океана</p>
+        <p class="profile__about"></p>
       </div>
       <button type="button" class="profile__add-button" aria-label="Добавить"></button>
     </section>
@@ -70,7 +73,7 @@
             required>
           <span class="error-text" id="cardLinkError"></span>
         </label>
-        <button type="submit" class="popup__save popup__save_card">Сохранить</button>
+        <button type="submit" class="popup__save popup__save_card">Создать</button>
       </form>
     </div>
   </div>
@@ -83,13 +86,42 @@
     </div>
   </div>
 
+  <div class="popup popup_delete">
+    <div class="popup__container popup__container_delete">
+      <button type="button" class="popup__close popup__close_delete"></button>
+      <h2 class="popup__title popup__title_delete">Вы уверены?</h2>
+      <form name="myForm" class="form form_delete" novalidate>
+        <input type="hidden" name="cardId" class="popup__input popup__input_card_id">
+        <button type="submit" class="popup__save popup__save_delete">Да</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="popup popup_avatar">
+    <div class="popup__container popup__container_avatar">
+      <button type="button" class="popup__close popup__close_avatar"></button>
+      <h2 class="popup__title popup__title_avatar">Обновить аватар</h2>
+      <form name="myForm" class="form form_avatar" novalidate>
+        <label class="popup__input-area">
+          <input type="url" name="avatarLink" class="popup__input popup__input_avatar_link" placeholder="Ссылка на аватар"
+            required>
+          <span class="error-text" id="avatarLinkError"></span>
+        </label>
+        <button type="submit" class="popup__save popup__save_avatar">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
   <template class="element-template">
-    <li class="element">
+    <li class="element" id="">
       <button type="button" class="element__delete" aria-label="Удалить"></button>
       <img src="<%=require('./sprint-4-images/MontBlanc.jpg')%>" alt="Гора Монблан" class="element__photo">
       <div class="element__group">
         <h3 class="element__title">Монблан</h3>
-        <button type="button" class="element__button" aria-label="Нравится"></button>
+        <div class="element__likes">
+          <button type="button" class="element__button" aria-label="Нравится"></button>
+          <p class="element__counter">0</p>
+        </div>
       </div>
     </li>
   </template>
