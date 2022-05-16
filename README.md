@@ -38,6 +38,7 @@ JavaScript-код был разделен на отдельные классы, 
 * Директивы import и export
 * Webpack
 * API
+* Асинхронность
 
 
 **GitHub Pages**
