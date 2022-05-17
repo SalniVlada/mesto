@@ -12,9 +12,6 @@ export class PopupWithForm extends Popup {
     if (this._commandSubmitCaption == "Сохранить") {
       this._operationSubmitCaption = "Сохранение..."
     }
-    // (1) объявить DOM-элемент кнопки submit через querySelector
-    // (2) получить название кнопки (1) и объявить его как переменную
-    // (3) объявить переменную с названием кнопки для загрузки: если (2) == сохранить, то сохранение, иначе создание
   }
 
   _getInputValues() {
@@ -41,9 +38,16 @@ export class PopupWithForm extends Popup {
   _callCallbackFunction(evt) {
     evt.preventDefault();
     this._renderLoading(true);
-    this._callbackSubmitForm(this._getInputValues());
-    this.close();
-    this._renderLoading(false);
+    this._callbackSubmitForm(this._getInputValues())
+      .then((result) => {
+        this.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        this._renderLoading(false);
+      });
   }
 
   close() {
@@ -51,10 +55,6 @@ export class PopupWithForm extends Popup {
 
     this.form.reset();
   }
-
-  // функция renderLoading (isLoading)
-  // если isLoading - true, то задавать textContent у кнопки (1) как (3)...
-  // иначе задавать как (2)
 
   _renderLoading (isLoading) {
     if(isLoading) {
