@@ -26,7 +26,7 @@ export class FormValidator {
 
   _validateElements(input) {
     this._validateInput(input);
-    this.toggleButtonState();
+    this._toggleButtonState();
   };
 
   // Валидация поля ввода.
@@ -64,8 +64,18 @@ export class FormValidator {
     errorPlace.classList.add(this._errorClass);
   }
 
+  // очистка ошибок и управление кнопкой
+  resetValidation() {
+    this._toggleButtonState();
+
+    this._inputs.forEach((inputElement) => {
+      const errorPlace = this._findInputErrorPlace(inputElement);
+      this._hideInputError(inputElement, errorPlace);
+    });
+  }
+
   //Валидация поля формы
-  toggleButtonState() {
+  _toggleButtonState() {
     if (this._isInputsValid()) {
       this._button.classList.remove(this._inactiveButtonClass);
       this._button.removeAttribute('disabled');
