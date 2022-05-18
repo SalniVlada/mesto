@@ -28,7 +28,7 @@ function submitProfile(inputValues) {
 
   return api.patchUserInfo({name: name, about: about})
     .then((result) => {
-      userInfo.setUserInfo({ newElementName: name, newElementAbout: about });
+      userInfo.setUserInfo({ newElementName: name, newElementAbout: about, userId: userInfo.userId });
     });
 }
 
