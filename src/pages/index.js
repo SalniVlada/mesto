@@ -25,9 +25,11 @@ const userInfo = new UserInfo({
 function submitProfile(inputValues) {
   const name = inputValues["personName"];
   const about = inputValues["personAbout"];
-  userInfo.setUserInfo({ newElementName: name, newElementAbout: about });
 
-  return api.patchUserInfo({name: name, about: about});
+  return api.patchUserInfo({name: name, about: about})
+    .then((result) => {
+      userInfo.setUserInfo({ newElementName: name, newElementAbout: about });
+    });
 }
 
 
